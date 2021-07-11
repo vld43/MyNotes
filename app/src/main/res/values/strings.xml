@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MyNotes</string>
+    <string name="add_note_btn">Добавить</string>
+    <string name="start_label">Что использовать?</string>
+    <string name="start_room_btn">ROOM</string>
 
 </resources>

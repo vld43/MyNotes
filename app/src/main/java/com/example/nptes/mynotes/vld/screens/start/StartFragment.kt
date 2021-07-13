@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.example.nptes.mynotes.vld.R
 import com.example.nptes.mynotes.vld.databinding.FragmentStartBinding
+import com.example.nptes.mynotes.vld.utilits.APP_ACTIVITY
 import com.example.nptes.mynotes.vld.utilits.TYPE_ROOM
 
 
@@ -39,7 +40,9 @@ class StartFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
 
         roomBtn.setOnClickListener {
-            viewModel.initDatabase(TYPE_ROOM)
+            viewModel.initDatabase(TYPE_ROOM) {
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+            }
         }
     }
 

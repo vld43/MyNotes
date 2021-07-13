@@ -8,6 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        viewBinding.enabled = true
         applicationId "com.example.nptes.mynotes.vld"
         minSdkVersion 22
         targetSdkVersion 30

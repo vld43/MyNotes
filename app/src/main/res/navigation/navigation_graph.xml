@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewNoteFragment"
-        android:name="com.example.nptes.mynotes.vld.screens.AddNewNoteFragment"
+        android:name="com.example.nptes.mynotes.vld.screens.addNewNote.AddNewNoteFragment"
         android:label="fragment_add_new_note"
         tools:layout="@layout/fragment_add_new_note" >
         <action

@@ -19,14 +19,25 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainHolder>() {
         val textNote: TextView = view.findViewById(R.id.item_note_text)
     }
 
+    override fun onViewAttachedToWindow(holder: MainHolder) {
+        holder.itemView.setOnClickListener {
+            MainFragment.click(listNotes[holder.adapterPosition])
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: MainHolder) {
+        holder.itemView.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
         return MainHolder(view)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        holder.textNote.text = listNotes[position].text
         holder.nameNote.text = listNotes[position].name
+        holder.textNote.text = listNotes[position].text
     }
 
     override fun getItemCount(): Int = listNotes.size

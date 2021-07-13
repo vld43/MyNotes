@@ -64,5 +64,14 @@ class MainFragment : Fragment() {
 
     }
 
+    companion object {
+
+        fun click(note: AppNote) {
+            val bundle = Bundle()
+            bundle.putSerializable("note", note)
+
+            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
+        }
+    }
 
 }

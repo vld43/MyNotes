@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.nptes.mynotes.vld.screens.MainFragment"
+        android:name="com.example.nptes.mynotes.vld.screens.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action

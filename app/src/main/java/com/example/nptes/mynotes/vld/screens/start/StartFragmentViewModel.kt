@@ -2,6 +2,7 @@ package com.example.nptes.mynotes.vld.screens.start
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.example.nptes.mynotes.vld.database.firebase.AppFirebaseRepository
 import com.example.nptes.mynotes.vld.database.room.AppRoomDatabase
 import com.example.nptes.mynotes.vld.database.room.AppRoomRepository
 import com.example.nptes.mynotes.vld.utilits.REPOSITORY
@@ -22,7 +23,8 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
             }
 
             TYPE_FIREBASE -> {
-                showToast(TYPE_FIREBASE)
+                REPOSITORY = AppFirebaseRepository()
+                REPOSITORY.connectToDatabase({onSuccess()}, { showToast(it)})
             }
         }
     }

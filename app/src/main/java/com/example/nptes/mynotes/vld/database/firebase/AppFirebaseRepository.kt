@@ -9,22 +9,21 @@ import com.google.firebase.database.FirebaseDatabase
 
 class AppFirebaseRepository : DatabaseRepository {
 
-    private val auth = FirebaseAuth.getInstance()
-    private val databaseReference = FirebaseDatabase.getInstance()
-        .reference
-        .child(auth.currentUser?.uid.toString())
+    init {
+        AUTH = FirebaseAuth.getInstance()
+    }
 
     override val allNotes: LiveData<List<AppNote>> = AllNoteLiveData()
 
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
-        val idNote = databaseReference.push().key.toString()
+        val idNote = REF_DATABASE.push().key.toString()
         val mapNote = hashMapOf<String, Any>()
 
         mapNote[ID_FIREBASE] = idNote
         mapNote[NAME] = note.name
         mapNote[TEXT] = note.text
 
-        databaseReference.child(idNote)
+        REF_DATABASE.child(idNote)
             .updateChildren(mapNote)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener { showToast(it.message.toString()) }
@@ -35,16 +34,21 @@ class AppFirebaseRepository : DatabaseRepository {
     }
 
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: (String) -> Unit) {
-        auth.signInWithEmailAndPassword(EMAIL, PASSWORD)
+        AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener {
-                auth.createUserWithEmailAndPassword(EMAIL, PASSWORD)
+                AUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD)
                     .addOnSuccessListener { onSuccess() }
                     .addOnFailureListener { onFail(it.message.toString()) }
             }
+
+        CURRENT_ID = AUTH.currentUser?.uid.toString()
+        REF_DATABASE = FirebaseDatabase.getInstance()
+            .reference
+            .child(CURRENT_ID)
     }
 
     override fun signOut() {
-        auth.signOut()
+        AUTH.signOut()
     }
 }

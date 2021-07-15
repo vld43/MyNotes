@@ -30,7 +30,10 @@ class AppFirebaseRepository : DatabaseRepository {
     }
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
-        TODO("Not yet implemented")
+        REF_DATABASE.child(note.idFirebase)
+            .removeValue()
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { showToast(it.message.toString()) }
     }
 
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: (String) -> Unit) {
@@ -43,7 +46,8 @@ class AppFirebaseRepository : DatabaseRepository {
             }
 
         CURRENT_ID = AUTH.currentUser?.uid.toString()
-        REF_DATABASE = FirebaseDatabase.getInstance()
+        REF_DATABASE = FirebaseDatabase
+            .getInstance()
             .reference
             .child(CURRENT_ID)
     }

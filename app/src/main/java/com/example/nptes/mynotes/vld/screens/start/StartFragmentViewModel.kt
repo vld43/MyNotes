@@ -14,8 +14,8 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
 
     private val context = application
 
-    fun initDatabase(type: String, onSuccess:() -> Unit) {
-        when(type) {
+    fun initDatabase(type: String, onSuccess: () -> Unit) {
+        when (type) {
             TYPE_ROOM -> {
                 val dao = AppRoomDatabase.getInstance(context).getAppRoomDao()
                 REPOSITORY = AppRoomRepository(dao)
@@ -24,7 +24,7 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
 
             TYPE_FIREBASE -> {
                 REPOSITORY = AppFirebaseRepository()
-                REPOSITORY.connectToDatabase({onSuccess()}, { showToast(it)})
+                REPOSITORY.connectToDatabase({ onSuccess() }, { showToast(it) })
             }
         }
     }

@@ -7,4 +7,8 @@ import com.example.nptes.mynotes.vld.utilits.REPOSITORY
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
     val allNotes = REPOSITORY.allNotes
+
+    fun signOut() {
+        REPOSITORY.signOut()
+    }
 }

@@ -1,17 +1,18 @@
 package com.example.nptes.mynotes.vld.screens.main
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nptes.mynotes.vld.R
 import com.example.nptes.mynotes.vld.databinding.FragmentMainBinding
 import com.example.nptes.mynotes.vld.models.AppNote
 import com.example.nptes.mynotes.vld.utilits.APP_ACTIVITY
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
@@ -47,6 +48,8 @@ class MainFragment : Fragment() {
     }
 
     private fun initialization() {
+        setHasOptionsMenu(true)
+
         adapter = MainAdapter()
         recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
@@ -72,6 +75,24 @@ class MainFragment : Fragment() {
 
             APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_action_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.exit_btn -> {
+                viewModel.signOut()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
+                }
+
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

@@ -26,4 +26,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <Button
+        android:id="@+id/firebase_btn"
+        android:layout_width="@dimen/width_btn"
+        android:layout_height="wrap_content"
+        android:text="@string/start_firebase_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/room_btn" />
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="@dimen/width_btn"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin"
+        android:autofillHints=""
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firebase_btn" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="@dimen/width_btn"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin"
+        android:autofillHints=""
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_email" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="@dimen/width_btn"
+        android:layout_height="wrap_content"
+        android:text="@string/start_login_btn"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_password" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

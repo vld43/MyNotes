@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.example.nptes.mynotes.vld.R
 import com.example.nptes.mynotes.vld.databinding.FragmentStartBinding
-import com.example.nptes.mynotes.vld.utilits.APP_ACTIVITY
-import com.example.nptes.mynotes.vld.utilits.TYPE_ROOM
+import com.example.nptes.mynotes.vld.utilits.*
 
 
 class StartFragment : Fragment() {
@@ -19,8 +17,6 @@ class StartFragment : Fragment() {
     private val binding get() = fragmentStartBinding!!
 
     private lateinit var viewModel: StartFragmentViewModel
-
-    private val roomBtn by lazy { requireView().findViewById<Button>(R.id.room_btn) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,9 +40,31 @@ class StartFragment : Fragment() {
     private fun initialization() {
         viewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
 
-        roomBtn.setOnClickListener {
+        binding.roomBtn.setOnClickListener {
             viewModel.initDatabase(TYPE_ROOM) {
                 APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+            }
+        }
+
+        binding.firebaseBtn.setOnClickListener {
+            binding.inputEmail.visibility = View.VISIBLE
+            binding.inputPassword.visibility = View.VISIBLE
+            binding.loginBtn.visibility = View.VISIBLE
+
+            binding.loginBtn.setOnClickListener {
+                val inputEmail = binding.inputEmail.text.toString()
+                val inputPassword = binding.inputPassword.text.toString()
+
+                if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
+                    EMAIL = inputEmail
+                    PASSWORD = inputPassword
+
+                    viewModel.initDatabase(TYPE_FIREBASE) {
+                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+                    }
+                } else {
+                    showToast(getString(R.string.toast_wrong_enter))
+                }
             }
         }
     }

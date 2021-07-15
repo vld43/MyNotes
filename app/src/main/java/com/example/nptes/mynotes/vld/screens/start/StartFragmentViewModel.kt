@@ -5,7 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.nptes.mynotes.vld.database.room.AppRoomDatabase
 import com.example.nptes.mynotes.vld.database.room.AppRoomRepository
 import com.example.nptes.mynotes.vld.utilits.REPOSITORY
+import com.example.nptes.mynotes.vld.utilits.TYPE_FIREBASE
 import com.example.nptes.mynotes.vld.utilits.TYPE_ROOM
+import com.example.nptes.mynotes.vld.utilits.showToast
 
 class StartFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -17,6 +19,10 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
                 val dao = AppRoomDatabase.getInstance(context).getAppRoomDao()
                 REPOSITORY = AppRoomRepository(dao)
                 onSuccess()
+            }
+
+            TYPE_FIREBASE -> {
+                showToast(TYPE_FIREBASE)
             }
         }
     }

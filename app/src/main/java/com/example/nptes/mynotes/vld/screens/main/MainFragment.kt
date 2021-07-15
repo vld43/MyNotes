@@ -11,6 +11,7 @@ import com.example.nptes.mynotes.vld.R
 import com.example.nptes.mynotes.vld.databinding.FragmentMainBinding
 import com.example.nptes.mynotes.vld.models.AppNote
 import com.example.nptes.mynotes.vld.utilits.APP_ACTIVITY
+import com.example.nptes.mynotes.vld.utilits.AppPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -85,6 +86,7 @@ class MainFragment : Fragment() {
         when (item.itemId) {
             R.id.exit_btn -> {
                 viewModel.signOut()
+                AppPreference.setInitUser(false)
                 lifecycleScope.launch(Dispatchers.Main) {
                     APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
                 }

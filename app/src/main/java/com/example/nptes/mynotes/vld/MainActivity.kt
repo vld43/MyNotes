@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.nptes.mynotes.vld.databinding.ActivityMainBinding
 import com.example.nptes.mynotes.vld.utilits.APP_ACTIVITY
+import com.example.nptes.mynotes.vld.utilits.AppPreference
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
 
     private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolBar)
         title = getString(R.string.title)
+
+        AppPreference.getPreference(this)
     }
 
     override fun onDestroy() {

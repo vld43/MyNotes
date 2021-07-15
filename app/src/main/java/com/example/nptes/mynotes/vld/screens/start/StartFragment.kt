@@ -29,7 +29,16 @@ class StartFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+
+        viewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
+
+        if (AppPreference.getInitUser()) {
+            viewModel.initDatabase(AppPreference.getTypeDB()) {
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+            }
+        } else {
+            initialization()
+        }
     }
 
     override fun onDestroyView() {
@@ -38,10 +47,12 @@ class StartFragment : Fragment() {
     }
 
     private fun initialization() {
-        viewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
 
         binding.roomBtn.setOnClickListener {
             viewModel.initDatabase(TYPE_ROOM) {
+                AppPreference.setInitUser(true)
+                AppPreference.setTypeDB(TYPE_ROOM)
+
                 APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
         }
@@ -55,11 +66,14 @@ class StartFragment : Fragment() {
                 val inputEmail = binding.inputEmail.text.toString()
                 val inputPassword = binding.inputPassword.text.toString()
 
-                if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
+                if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
                     EMAIL = inputEmail
                     PASSWORD = inputPassword
 
                     viewModel.initDatabase(TYPE_FIREBASE) {
+                        AppPreference.setInitUser(true)
+                        AppPreference.setTypeDB(TYPE_FIREBASE)
+
                         APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
                     }
                 } else {
